@@ -1,18 +1,72 @@
-import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React from 'react';
+import {Text, View, Image} from 'react-native';
+import {AppBackground, AppButton, Input} from '../../../components';
+import {Card, Icon} from '@rneui/themed';
+import styles from './styles';
+import {appIcons} from '../../../utils/styling/appAssets';
+import {useState} from 'react';
 
-interface SplashProps {}
+interface LoginProps {}
 
-const Splash = (props: SplashProps) => {
+const Login = (props: LoginProps) => {
+  const [inputOptions, setInputOptions] = useState({
+    email: '',
+    password: '',
+  });
+
   return (
-    <View style={styles.container}>
-      <Text>Splash</Text>
-    </View>
+    <AppBackground>
+      <View style={{flex: 0.4}}></View>
+      <View style={{flex: 0.8}}>
+        <Card containerStyle={styles.cardContainer}>
+          <Card.Title style={styles.welcomeText}>Welcome Back!</Card.Title>
+          <Input
+            placeholder={'Email'}
+            value={inputOptions.email}
+            onChangeText={value => {
+              setInputOptions({
+                ...inputOptions,
+                email: value,
+              });
+            }}
+            leftIcon={
+              <Image
+                source={appIcons.emailIcon}
+                style={styles.inputIcon}
+                resizeMode={'cover'}
+              />
+            }
+          />
+          <Input
+            placeholder={'Create a password'}
+             value={inputOptions.password}
+            onChangeText={value => {
+              setInputOptions({
+                ...inputOptions,
+                password: value,
+              });
+            }}
+            leftIcon={
+              <Image
+                source={appIcons.passwordIcon}
+                style={styles.inputIcon}
+                resizeMode={'contain'}
+              />
+            }
+          />
+        </Card>
+      </View>
+      <View style={styles.bottomBody}>
+        <AppButton title={'Log In'} onPress={() => {}} />
+        <Text style={styles.bottomText}>
+          Don’t have an account yet?{' '}
+          <Text onPress={() => {}} style={styles.signUpText}>
+            Sign Up
+          </Text>
+        </Text>
+      </View>
+    </AppBackground>
   );
 };
 
-export default Splash;
-
-const styles = StyleSheet.create({
-  container: {}
-});
+export default Login;
