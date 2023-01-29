@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import {Input as RNInput} from '@rneui/themed';
+import {Input as RNInput, Icon} from '@rneui/themed';
 import {fontFamily, colors, HP, size, WP} from '../../utils';
 
 const Input = ({
@@ -36,13 +36,43 @@ const Input = ({
 
   return (
     <RNInput
-      label={label}
+      label={
+        renderErrorMessage ? (
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingVertical: HP('1'),
+            }}>
+            <Icon
+              name={'infocirlceo'}
+              size={16}
+              type={'antdesign'}
+              color={colors.red}
+            />
+            <Text
+              style={{
+                fontFamily: fontFamily['DMSans-Medium'],
+                color: colors.error,
+                paddingLeft: WP('1.5'),
+              }}>
+              {errorMessage}
+            </Text>
+          </View>
+        ) : (
+          label
+        )
+      }
       labelStyle={[styles.labelStyle, labelStyle]}
       placeholder={placeholder}
       disabled={disabled}
       placeholderTextColor={'#00000060'}
       secureTextEntry={showPass}
-      inputContainerStyle={[styles.inputContainerStyle, inputContainerStyle]}
+      inputContainerStyle={[
+        styles.inputContainerStyle,
+        inputContainerStyle,
+        {borderColor: renderErrorMessage ? colors.error : colors.g1},
+      ]}
       inputStyle={[styles.inputStyle, inputStyle]}
       leftIcon={leftIcon}
       onChangeText={onChangeText}
@@ -52,24 +82,24 @@ const Input = ({
       autoCapitalize={autoCapitalize}
       blurOnSubmit={blurOnSubmit}
       editable={editable}
+      renderErrorMessage={renderErrorMessage}
       containerStyle={[styles.containerStyle, containerStyle]}
       rightIcon={
-        secureTextEntry ? (
-          <Icon
-            onPress={() => {
-              setShowPass(!showPass);
-            }}
-            name={!showPass ? 'eye-outline' : 'eye-off-outline'}
-            type={'material-community'}
-            size={22}
-            color={passwordEyeColor}
-            tvParallaxProperties={undefined}
-          />
-        ) : (
-          rightIcon
-        )
+        secureTextEntry
+          ? null
+          : // <Icon
+            //   onPress={() => {
+            //     setShowPass(!showPass);
+            //   }}
+            //   name={!showPass ? 'eye-outline' : 'eye-off-outline'}
+            //   type={'material-community'}
+            //   size={22}
+            //   color={passwordEyeColor}
+            //   tvParallaxProperties={undefined}
+            // />
+            rightIcon
       }
-      errorMessage={errorMessage}
+      // errorMessage={errorMessage}
       style={{fontSize: 11}}
       renderErrorMessage={false}
       autoCompleteType={undefined}

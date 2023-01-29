@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily['DMSans-Bold'],
     fontSize: 15,
     color: colors.primary,
+    textDecorationLine: 'underline',
   },
   welcomeText: {
     textAlign: 'left',
