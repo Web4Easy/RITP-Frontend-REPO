@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import {
   Text,
   View,
@@ -8,10 +8,19 @@ import {
   Image,
 } from 'react-native';
 import {appImages, appLogos, colors, fontFamily, HP, WP} from '../../../utils';
+import {useNavigation} from '@react-navigation/native';
 
 interface SplashProps {}
 
 const Splash = (props: SplashProps) => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.navigate('Login');
+    }, 1000);
+  }, []);
+
   return (
     <ImageBackground
       style={styles.imageBackStyle}
